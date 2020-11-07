@@ -1,0 +1,62 @@
+<div class="errorBlock" *ngIf="errorMes">
+  <h3>Ошибка получения форм:</h3>
+  <pre>{{ errorMes }}</pre>
+</div>
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input id="filterInput" matInput type="text" [(ngModel)]="strSample" />
+  <button
+    mat-button
+    *ngIf="strSample"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="strSample = ''; filterReLoad()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<mat-form-field style="margin-left: 1rem;">
+  <mat-label>CreateDate after: </mat-label>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    (dateInput)="inputDateEvent('input', $event)"
+  />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+
+<button mat-button color="primary" (click)="clearAll()">clearAll</button>
+
+<table>
+  <tr>
+    <th>edit</th>
+    <th *ngFor="let hed of formFields">{{ hed.title }}</th>
+    <th>created</th>
+    <th>updated</th>
+  </tr>
+
+  <tr *ngFor="let formItem of formItems">
+    <td>
+      <button mat-button color="primary" (click)="toEdit(formItem.id)">
+        edit
+      </button>
+    </td>
+    <td *ngFor="let td1 of formItem.form_field_values">{{ td1.value }}</td>
+    <td>{{ formItem.created_at | date }}</td>
+    <td>{{ formItem.updated_at | date }}</td>
+  </tr>
+</table>
+<button
+  mat-button
+  color="primary"
+  (click)="prevPage()"
+  [disabled]="queryPage == 1"
+>
+  prevPage
+</button>
+<span>page: {{ queryPage }}</span>
+<button mat-button color="primary" (click)="nextPage()">nextPage</button>

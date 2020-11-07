@@ -1,0 +1,8 @@
+<span>
+  <span *ngIf="isLogged">
+    <app-user-widget></app-user-widget>
+  </span>
+  <span *ngIf="!isLogged">
+    <button mat-button color="accent" (click)="popupLogIn()">LogIn</button>
+  </span>
+</span>

@@ -1,0 +1,8 @@
+<div>
+  <div *ngIf="isLogged">
+    <app-form-list></app-form-list>
+  </div>
+  <div *ngIf="!isLogged">
+    <app-login></app-login>
+  </div>
+</div>

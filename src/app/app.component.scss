@@ -1,0 +1,29 @@
+mat-sidenav-content {
+  padding: 10px;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+.layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.header {
+  width: 100%;
+  flex: 0;
+}
+
+.main {
+  width: 100%;
+  flex: 1;
+}
+
+.bottom {
+  width: 100%;
+  flex: 0;
+}

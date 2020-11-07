@@ -1,0 +1,21 @@
+<h2>Edit form</h2>
+<button mat-button color="primary" (click)="onCancel()">Cancel</button>
+<button mat-button color="accent" (click)="onClearAll()">ClearAll</button>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <formly-form
+    [form]="form"
+    [fields]="formlyFieldConfig"
+    [model]="model"
+  ></formly-form>
+  <button
+    mat-button
+    color="primary"
+    type="submit"
+    class="btn btn-default"
+    [disabled]="!form.valid"
+  >
+    Submit
+  </button>
+</form>
+<p></p>
+<button mat-button color="error" (click)="onDeleteForm()">Delete form</button>

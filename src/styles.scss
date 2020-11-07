@@ -1,0 +1,93 @@
+// @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "~@angular/material/theming";
+@include mat-core();
+
+$active-router-link-bgc: #eef;
+
+// ================= default theme: deeppurple-amber.scss ============
+$da-primary: mat-palette($mat-deep-purple);
+$da-accent: mat-palette($mat-amber, A200, A100, A400);
+$da-app-theme: mat-light-theme(
+  (
+    color: (
+      primary: $da-primary,
+      accent: $da-accent,
+    ),
+  )
+);
+
+@include angular-material-theme($da-app-theme);
+
+// ============ $dark-app-theme ===================
+$dark-app-primary: mat-palette($mat-pink, 700, 500, 900);
+$dark-app-accent: mat-palette($mat-blue-grey, A200, A100, A400);
+$dark-app-theme: mat-dark-theme(
+  (
+    color: (
+      primary: $dark-app-primary,
+      accent: $dark-app-accent,
+    ),
+  )
+);
+
+.dark-app-theme {
+  @include angular-material-color($dark-app-theme);
+}
+
+// ============ $custom-light-app-theme ===================
+$custom-light-app-primary: mat-palette($mat-green, 700, 500, 900);
+$custom-light-app-accent: mat-palette($mat-amber, A400, A200, A700);
+$custom-light-app-warn: mat-palette($mat-red);
+
+$mat-light-theme-background: (
+  status-bar: map_get($mat-grey, 300),
+  app-bar: map_get($mat-yellow, 50),
+  background: map_get($mat-yellow, 50),
+  hover: rgba(black, 0.04),
+  card: map_get($mat-yellow, 50),
+  dialog: map_get($mat-yellow, 50),
+  disabled-button: rgba(black, 0.12),
+  raised-button: map_get($mat-yellow, 200),
+  focused-button: $dark-focused,
+  selected-button: map_get($mat-grey, 300),
+  selected-disabled-button: map_get($mat-grey, 400),
+  disabled-button-toggle: map_get($mat-grey, 200),
+  unselected-chip: map_get($mat-grey, 300),
+  disabled-list-option: map_get($mat-grey, 200),
+  tooltip: map_get($mat-grey, 700),
+);
+
+$custom-light-app-theme: mat-light-theme(
+  (
+    color: (
+      primary: $custom-light-app-primary,
+      accent: $custom-light-app-accent,
+      warn: $custom-light-app-warn,
+    ),
+  )
+);
+
+.custom-light-app-theme {
+  @include angular-material-color($custom-light-app-theme);
+}
+
+// =======================================================
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.loading {
+  font-size: 2em;
+  color: red;
+}
+
+.active-router-link {
+  background-color: $active-router-link-bgc;
+}

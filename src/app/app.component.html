@@ -1,0 +1,75 @@
+<div
+  [class.dark-app-theme]="(styleState$ | async).darkAppThemeOn"
+  [class.custom-light-app-theme]="(styleState$ | async).customLightAppThemeOn"
+>
+  <div class="layout">
+    <div class="header">
+      <mat-toolbar color="primary">
+        <button mat-button (click)="menuOn = !menuOn" color="accent">
+          <mat-icon>view_sidebar</mat-icon>Menu
+        </button>
+        <button mat-button color="accent" title="to home" (click)="toHome()">
+          <h1 id="homeTitle" class="mat-h1">Form Editor</h1>
+        </button>
+
+        <span style="flex: 1 1 auto;"></span>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" title="setTheme">
+          <mat-icon color="accent">style</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="setTheme('')">
+            Set blue theme
+          </button>
+          <button mat-menu-item (click)="setTheme('darkAppThemeOn')">
+            Set dark theme
+          </button>
+          <button mat-menu-item (click)="setTheme('customLightAppThemeOn')">
+            custom yellow theme
+          </button>
+        </mat-menu>
+
+        <app-auth></app-auth>
+      </mat-toolbar>
+    </div>
+    <div class="main">
+      <mat-sidenav-container>
+        <mat-sidenav mode="side" [opened]="menuOn">
+          <mat-nav-list>
+            <a
+              mat-list-item
+              routerLink="{{ link.link }}"
+              routerLinkActive="active-router-link"
+              [routerLinkActiveOptions]="{ exact: true }"
+              *ngFor="let link of links"
+            >
+              <button mat-button color="primary">{{ link.name }}</button>
+            </a>
+          </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+          <router-outlet></router-outlet>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
+    <div class="footer">
+      <mat-toolbar color="primary" class="bottom-toolbar">
+        <button mat-button (click)="menuOn = !menuOn" color="accent">
+          Menu
+        </button>
+        <a (click)="toHome()">
+          <button mat-button color="accent" title="to home">
+            <h1 id="homeTitle" class="mat-h4">
+              author: andrew2020wit
+            </h1>
+          </button>
+        </a>
+        <span></span>
+        <span style="flex: 1 1 auto;"></span>
+        <button mat-button color="accent" (click)="toHome()">
+          <mat-icon>home</mat-icon> Go to home
+        </button>
+      </mat-toolbar>
+    </div>
+  </div>
+</div>
