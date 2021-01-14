@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
-import { fromEvent, Observable } from 'rxjs';
+import { fromEvent, Observable, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { FormEditorService, IFormItem } from '../form-editor.service';
 import { IFormField } from './../form-editor.service';
@@ -24,6 +24,8 @@ export class FormListComponent implements OnInit, AfterViewInit {
 
   errorMes: any;
 
+  filterReLoadSubscription: Subscription;
+
   constructor(
     private formEditorService: FormEditorService,
     private router: Router
@@ -41,14 +43,17 @@ export class FormListComponent implements OnInit, AfterViewInit {
     this.filterInputKeyUp = fromEvent(this.filterInput, 'keyup') as Observable<
       Event
     >;
-    this.filterInputKeyUp.pipe(debounceTime(1000)).subscribe(() => {
+    this.filterInputKeyUp.pipe(debounceTime(0)).subscribe(() => {
       this.queryPage = 1;
       this.filterReLoad();
     });
   }
 
   filterReLoad() {
-    this.formEditorService
+    if (this.filterReLoadSubscription) {
+      this.filterReLoadSubscription.unsubscribe();
+    }
+    this.filterReLoadSubscription = this.formEditorService
       .getForms$({
         search: this.strSample,
         createdAfter: this.filterDateAfter,
@@ -64,6 +69,10 @@ export class FormListComponent implements OnInit, AfterViewInit {
           console.log('filterReLoad error:', error);
         }
       );
+    console.log(
+      'this.filterReLoadSubscription2',
+      this.filterReLoadSubscription
+    );
   }
 
   toEdit(id) {
